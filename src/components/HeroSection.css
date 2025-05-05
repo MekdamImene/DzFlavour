@@ -1,0 +1,91 @@
+/* src/components/HeroSection.css */
+
+.hero-section {
+  display: flex;
+  height: 60vw;
+  margin: 10px auto;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  
+}
+
+.hero-content {
+  position: absolute;
+  bottom: 30px;
+  left: 6vw;
+  display: flex;               /* ✅ ضروري لجعل العناصر في صف واحد */
+ flex-direction: row-reverse;        /* صف أفقي */
+  align-items: center;         /* توسيط عمودي */
+  gap: 2vw;                    /* مسافة بين الجملة والزر */
+  max-width: 90%;
+  z-index: 2;
+  
+}
+
+.hero-text-box {
+  background-color: rgba(249, 249, 255, 0.5);
+  padding: 10px;
+  border-radius: 35px;
+  color: rgb(3, 18, 58);
+  font-size: 25px;
+  font-weight: 600;
+  margin-left: 200px;
+ 
+  
+}
+
+.order-btn {
+  background-color: #ffc107;
+  color: rgb(28, 24, 63);
+  font-size: 25px;
+  padding: 17px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  left: 6vw;
+  
+}
+
+.order-btn:hover {
+  background-color: #ffaa00;
+  color: white;
+}
+
+  /*.hero-title {
+    font-size: 7rem;
+    font-weight: blod;
+    margin-bottom: 60px;
+  }
+  
+  .hero-subtitle {
+    font-size: 10srem;
+    margin-bottom: 50px;
+  }*/
+  
+ /* .hero-buttons button {
+    margin-right: 25px;
+    font-size: 1.2rem;
+    padding: 50px 20px;
+  }
+  
+  .hero-image img {
+    width: 800px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  }*/
+  
+ /* @media (max-width: 768px) {
+    .hero-section {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .hero-image img {
+      width: 300px;
+      margin-top: 20px;
+    }
+    
+  
+  }*/
