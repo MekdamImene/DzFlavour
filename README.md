@@ -33,7 +33,7 @@ npm or yarn
 Installation
 bash
 Copy code
-git clone https://github.com/MekdamImene/dz_flavour.git
+git clone https://github.com/MekdamImene/DzFlavour.git
 cd dz_flavour
 npm install
 npm start
