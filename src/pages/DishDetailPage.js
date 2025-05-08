@@ -27,15 +27,15 @@ const DishDetailPage = () => {
     if (!isLoading) { 
       const foundDish = getDishById(dishId); 
       
-      //  Only update `sold` from localStorage (leave views as is)
+      
+    if (foundDish) {
       const savedSold = parseInt(localStorage.getItem(`dish-${dishId}-sold`)) || 0;
-      
-      //  Merge with existing dish data (preserve other properties)
-      setDish({ 
+
+      setDish({
         ...foundDish,
-        sold: savedSold  // Only this is guaranteed to be synced with localStorage
+        sold: savedSold, // Load real sold count
       });
-      
+    }
       // Views are loaded but not modified here
       const savedViews = localStorage.getItem(`dish-${dishId}-views`);
       setViews(savedViews ? parseInt(savedViews) : 0);
