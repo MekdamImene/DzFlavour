@@ -12,31 +12,27 @@ Dz Flavour is a comprehensive restaurant/food delivery web app that allows users
 - Read and submit reviews for dishes
 - Enjoy a seamless user experience from discovery to order placement
 
-Built with React, this application features context API for state management, responsive design, and interactive components.
-It provides users with:
-A categorized menu of dishes
-Detailed nutritional information
-User-submitted reviews
-A seamless shopping cart and checkout system
-## Tech Stack
-Frontend: React (with Context API)
-Styling: CSS Modules
-State Management: React Context API
-Responsive Design: Mobile to desktop
-Testing: React Testing Library
-Setup Instructions
-Prerequisites
-Node.js v14+
+Built with React:
+. It provides users with:
+. A categorized menu of dishes
+. Detailed nutritional information
+. User-submitted reviews
+. A seamless shopping cart and checkout system
 
-npm or yarn
 
-Installation
-bash
-Copy code
+# Setup Instructions – Run the Project Locally
+Follow these steps to set up and run the Dz Flavour React web app on your local machine:
+1. Clone the Repository
 git clone https://github.com/MekdamImene/DzFlavour.git
-cd dz_flavour
+cd DzFlavour
+2. Install Dependencies
+Ensure you have Node.js (v14 or higher) installed. Then, install project dependencies:
 npm install
+Or use yarn install if you're using Yarn.
+3. Start the Development Server
 npm start
+This will launch the app in development mode. Open your browser and navigate to:
+http://localhost:3000
 ## Project Structure Overview
 1. src/components/
 Reusable UI components used across pages:
