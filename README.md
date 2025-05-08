@@ -1,11 +1,11 @@
 
-# dz_flavour 🍽
+# Dz Flavour 🍽
 
 A modern web application for exploring and ordering delicious dishes with nutritional insights and user reviews.
 
 ## Project Description
 
-dz_flavour is a comprehensive restaurant/food delivery web app that allows users to:
+Dz Flavour is a comprehensive restaurant/food delivery web app that allows users to:
 - Browse an organized menu of dishes
 - View detailed dish information including nutritional facts
 - Add items to a shopping cart and complete checkout
