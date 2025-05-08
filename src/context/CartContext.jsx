@@ -36,11 +36,9 @@ export const CartProvider = ({ children }) => {
         return [...prevItems, { ...product, quantity }];
       }
     });
-
-    const soldkey=`dish-${product.id}-sold`;
-    const currentsold = parseInt(localStorage.getItem(soldkey))||0;
-    localStorage.setItem(soldkey,currentsold+quantity);
   };
+      
+  
 
   // Remove a product from the cart
   const removeFromCart = (productId) => {
@@ -97,5 +95,7 @@ export const CartProvider = ({ children }) => {
 export const useCart = () => {
   return useContext(CartContext);
 };
+
+export default CartProvider;
 
 export default CartProvider;
