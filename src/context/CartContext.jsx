@@ -98,4 +98,4 @@ export const useCart = () => {
 
 export default CartProvider;
 
-export default CartProvider;
+
