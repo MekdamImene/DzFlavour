@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 // Composants de layout
@@ -11,18 +11,21 @@ import HomePage from './pages/HomePage';
 import MenuPage from './pages/MenuPage';
 import CategoryPage from './pages/CategoryPage';
 import DishDetailPage from './pages/DishDetailPage';
-import DishCard from './components/DishCard';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
-
 import AboutPage from './pages/AboutPage';
-
 // Contextes
 import { MenuProvider } from './context/MenuContext'; 
 
 import './App.css';
 
 function App() {
+  const [reviews, setReviews] = useState([]);
+
+  const handleAddReview = (review) => {
+    setReviews([...reviews, review]);
+  };
+
   return (
     <MenuProvider>
       <CartProvider>
@@ -33,10 +36,13 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/menu" element={<MenuPage />} />
               <Route path="/category/:categoryId" element={<CategoryPage />} />
-              <Route path="/dish/:dishId" element={<DishDetailPage />} />
+              <Route 
+  path="/dish/:dishId" 
+  element={<DishDetailPage />} 
+/>
+
               <Route path="/cart" element={<CartPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
-
               <Route path="/about" element={<AboutPage />} />
             </Routes>
           </main>
@@ -48,7 +54,6 @@ function App() {
 }
 
 export default App;
-
 
 
 

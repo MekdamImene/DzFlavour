@@ -3,6 +3,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import './AboutPage.css';
 
 const AboutPage = () => {
   return (
@@ -20,7 +21,7 @@ const AboutPage = () => {
         <div className="container">
           <div className="about-content">
             <div className="about-image">
-              <img src="/images/plat_algerien_repas_traditionnel.jpeg" alt="Notre restaurant" />
+              <img src="/images/about.jpg" alt="Notre restaurant" />
             </div>
             
             <div className="about-text">
@@ -120,13 +121,11 @@ passing along the Mediterranean coast.
           </div>
           
           <div className="team-section">
-            <h2>Notre Équipe</h2>
+            <h2>Our team</h2>
             
             <div className="team-grid">
               <div className="team-member">
-                <div className="member-image">
-                  <img src="/images/chef.jpg" alt="Chef Karim" />
-                </div>
+                
                 <h3>Karim Benali</h3>
                 <p className="member-role">Chef</p>
                 <p className="member-description">
@@ -135,9 +134,7 @@ passing along the Mediterranean coast.
               </div>
               
               <div className="team-member">
-                <div className="member-image">
-                  <img src="/images/manager.jpg" alt="Directrice Amina" />
-                </div>
+                
                 <h3>Amina Hadj</h3>
                 <p className="member-role">Director</p>
                 <p className="member-description">
@@ -146,9 +143,7 @@ passing along the Mediterranean coast.
               </div>
               
               <div className="team-member">
-                <div className="member-image">
-                  <img src="/images/pastry-chef.jpg" alt="Chef Pâtissier Yacine" />
-                </div>
+                
                 <h3>Yacine Khelif</h3>
                 <p className="member-role">Pastry Chef</p>
                 <p className="member-description">

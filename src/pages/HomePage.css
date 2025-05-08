@@ -4,13 +4,13 @@
     text-align: center;
   }
   
-  .hero-section {
+ .hero-section {
    /* background-image: url('/images/foodalger.jpg');*/
     padding:  20px;
     background-size: cover ;
     background-repeat: no-repeat;
     background-position: center;
-    max-height: 400px;
+    max-height: 300px;
     width: auto;
     display: block;
     margin: 0 auto;
@@ -23,6 +23,7 @@
   
   .popular-dishes-section {
     padding: 60px 20px;
+    color: rgb(62, 86, 153);
   }
   
   .about-preview-section {
@@ -31,17 +32,22 @@
   }
   
   .section-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 30px;
     text-align: center;
+    color: rgb(34, 84, 194);
   }
   
   .btn {
-    padding: 10px 20px;
+    padding: 20px 30px;
     margin: 10px;
+    background-color:rgb(29, 52, 153);
+    color:beige;
+   font-weight:bold;
+   font-size:18px;
   }
   
-  .loading {
+ .loading {
     text-align: center;
     font-size: 1.2rem;
     padding: 20px;

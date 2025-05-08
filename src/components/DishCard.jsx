@@ -1,71 +1,77 @@
 import React, { useState, useContext } from 'react';
+import { FaEye } from "react-icons/fa";
 import { CartContext } from '../context/CartContext';
-import './DishCard.css'; 
+import { Link } from 'react-router-dom';
+import './DishCard.css';
 
 const DishCard = ({ dish }) => {
   const { addToCart } = useContext(CartContext);
 
-  // Set initial states using default props to ensure they are defined
-  const [views, setViews] = useState(dish.views || 0);
+  const [views, setViews] = useState(() => {
+    const savedViews = localStorage.getItem(`dish-${dish.id}-views`);
+    return savedViews ? parseInt(savedViews) : 0;
+  });
   const [rating, setRating] = useState(dish.rating || 0);
   const [totalRatings, setTotalRatings] = useState(dish.totalRatings || 0);
 
-  // Handles adding item to the cart
   const handleAddToCart = (e) => {
-    e.stopPropagation(); // Prevents card click from triggering here
-    addToCart(dish, 1); // Add 1 item to cart
+    e.stopPropagation();
+    addToCart(dish, 1);
   };
 
-  // Increments view count when the card is clicked
-  const handleCardClick = () => {
-    setViews(prev => prev + 1);
+ const handleCardClick = () => {
+    const newViews = views + 1;
+    setViews(newViews);
+    localStorage.setItem(`dish-${dish.id}-views`, newViews.toString());
   };
-
-  // Handles the star rating click logic
   const handleStarClick = (e) => {
-    e.stopPropagation(); // Prevents card click from triggering here
+    e.stopPropagation();
     const updatedTotalRatings = totalRatings + 1;
-    const updatedRating = ((rating * totalRatings) + 5) / updatedTotalRatings; // Update rating based on new total
+    const updatedRating = ((rating * totalRatings) + 5) / updatedTotalRatings;
     setTotalRatings(updatedTotalRatings);
     setRating(updatedRating);
   };
 
   return (
-    <div className="card dish-card shadow-sm" data-category={dish.category} onClick={handleCardClick}>
-      <div className="position-relative">
-        <img src={dish.image} className="card-img-top" alt={dish.name} style={{ height: '450px', objectFit: 'cover' }} />
-        {dish.popular && (
-          <span className="badge bg-warning text-dark position-absolute top-0 start-0 m-2">
-            Populaire
-          </span>
-        )}
-      </div>
-
-      <div className="card-body d-flex flex-column justify-content-between">
-        <div>
-          <h5 className="card-title fw-bold">{dish.name}</h5>
-          <p className="card-text text-muted" style={{ minHeight: '60px' }}>{dish.description}</p>
-
-          <div className="dish-meta mb-3">
-            <div className="dish-rating mb-2" onClick={handleStarClick} style={{ cursor: 'pointer', color: '#ffc107' }}>
-              <span className="stars fs-5">
-                {/* Render filled stars based on rating */}
-                {'★'.repeat(Math.round(rating))}{'☆'.repeat(5 - Math.round(rating))}
-              </span>
-              <span className="ms-2 text-dark">{rating.toFixed(1)} ({totalRatings} avis)</span>
-            </div>
-            <div className="small text-muted">Vues: {views}</div>
-            <div className="fw-bold mt-1">{dish.price.toFixed(2)} DA</div>
-          </div>
+    <Link to={`/dish/${dish.id}`} className="dish-card-link" onClick={handleCardClick}>
+      <div className="dish-card" onClick={handleCardClick}>
+        <div className="dish-image-wrapper">
+          <img src={dish.image} alt={dish.name} className="dish-image" />
+          {views < 10 && (
+            <span className="dish-badge">
+              New
+            </span>
+          )}
         </div>
 
-        <button className="btn btn-primary w-100 mt-auto" onClick={handleAddToCart}>
-          Ajouter au panier
-        </button>
+        <div className="dish-card-body">
+          <div>
+            <h5 className="dish-title">{dish.name}</h5>
+            <p className="dish-description">{dish.description}</p>
+
+            <div className="dish-meta">
+              <div className="dish-rating" onClick={handleStarClick}>
+              <div className="dish-views"> {views} <FaEye className="eye-icon" /></div>
+                <span className="stars">
+                  {'★'.repeat(Math.round(rating))}
+                  {'☆'.repeat(5 - Math.round(rating))}
+                </span>
+                <span className="rating-text">{rating.toFixed(1)} </span>
+                
+              </div>
+             
+              <div className="dish-price"> {dish.price} <span className="currency-icon">₫</span>  
+              </div>
+            </div>
+          </div>
+
+          <button className="add-to-cart-btn" onClick={handleAddToCart}>
+            Add to Cart
+          </button>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
 export default DishCard;
-

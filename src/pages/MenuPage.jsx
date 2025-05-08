@@ -1,8 +1,10 @@
+
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import DishCard from '../components/DishCard';
 import { useMenu } from '../context/MenuContext';
+import './MenuPage.css'; 
 
 const MenuPage = () => {
   const { categoryId } = useParams();
@@ -10,10 +12,10 @@ const MenuPage = () => {
   const [activeCategory, setActiveCategory] = useState(categoryId || 'all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Obtenir les plats de la catégorie active
+
   const dishes = getDishesByCategory(activeCategory);
 
-  // Filtrer les plats en fonction de la recherche
+
   const filteredDishes = searchQuery.trim() === '' 
     ? dishes 
     : dishes.filter(dish => 
@@ -21,38 +23,42 @@ const MenuPage = () => {
         dish.description.toLowerCase().includes(searchQuery.toLowerCase())
       );
 
-  // Changer de catégorie
+
   const handleCategoryChange = (categoryId) => {
     setActiveCategory(categoryId);
     setSearchQuery('');
   };
 
-  // Gérer la recherche
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
   return (
     <div className="menu-page">
-      
-      
+
+
       <section className="menu-hero">
         <div className="container">
           <h1>Our Menu</h1>
           <p>Discover our traditional Algerian dishes, prepared with fresh and authentic ingredients</p>
-          
+
           <div className="search-container">
+            <div className="search-wrapper">
             <input 
               type="text" 
-              placeholder="Rechercher un plat..." 
+              placeholder="Search for a dish..." 
               value={searchQuery}
               onChange={handleSearchChange}
               className="search-input"
             />
+            <img src="/images/search-b.png" alt="search icon"
+            className="search-icon" />
           </div>
         </div>
+        </div>
       </section>
-      
+
       <section className="menu-section">
         <div className="container">
           <div className="category-tabs">
@@ -62,7 +68,7 @@ const MenuPage = () => {
             >
               Tous
             </button>
-            
+
             {categories.map(category => (
               <button 
                 key={category.id}
@@ -73,24 +79,29 @@ const MenuPage = () => {
               </button>
             ))}
           </div>
-          
+
           {isLoading ? (
-            <div className="loading">Chargement du menu...</div>
+            <div className="loading">Loading menu...</div>
           ) : filteredDishes.length === 0 ? (
             <div className="no-results">
-              <p>Aucun plat ne correspond à votre recherche.</p>
+              <p>No dishes match your search.</p>
             </div>
           ) : (
             <div className="dishes-grid">
               {filteredDishes.map(dish => (
-                <DishCard key={dish.id} dish={dish} />
+                <div className="dish-col" key={dish.id}>
+                  <DishCard dish={dish} />
+                </div>
               ))}
             </div>
           )}
         </div>
       </section>
+
+
       
-      
+
+
     </div>
   );
 };

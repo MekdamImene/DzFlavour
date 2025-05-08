@@ -43,11 +43,11 @@ const CartPage = () => {
                 <img src={item.image} alt={item.name} className="cart-item-image" />
                 <div className="cart-item-details">
                   <h3 className="cart-item-name">{item.name}</h3>
-                  <p className="cart-item-description">{item.description}</p>
+                  
                 </div>
               </div>
 
-              <div className="cart-item-price">{item.price.toFixed(2)} €</div>
+              <div className="cart-item-price">{item.price.toFixed(2)} ₫ </div>
 
               <div className="cart-item-quantity">
                 <button 
@@ -67,7 +67,7 @@ const CartPage = () => {
               </div>
 
               <div className="cart-item-total">
-                {(item.price * item.quantity).toFixed(2)} €
+                {(item.price * item.quantity).toFixed(2)} ₫ 
               </div>
 
               <div className="cart-item-actions">
@@ -87,17 +87,17 @@ const CartPage = () => {
 
           <div className="summary-row">
             <span>Subtotal</span>
-            <span>{getCartTotal().toFixed(2)} €</span>
+            <span>{getCartTotal().toFixed(2)} ₫</span>
           </div>
 
           <div className="summary-row">
             <span>Delivery Fees</span>
-            <span>3.00 €</span>
+            <span>300.00 ₫</span>
           </div>
 
           <div className="summary-row total">
             <span>Total</span>
-            <span>{(getCartTotal() + 3).toFixed(2)} €</span>
+            <span>{(getCartTotal() + 600).toFixed(2)} ₫ </span>
           </div>
 
           <button 

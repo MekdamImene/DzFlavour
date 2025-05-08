@@ -4,7 +4,7 @@ const menuData = {
   categories: [
     {
       id: 'entries',
-      name: 'Entries',
+      name: 'Entrees',
       description: 'Delicious traditional Algerian starters',
       dishes: [
         {
@@ -12,10 +12,10 @@ const menuData = {
           name: 'Chorba',
           description: 'Traditional soup made with meat, freekeh ',
           longDescription: 'Chorba is one of algierns most popular entrees .This savory soup is made,with lamb,vermicelli noodles, and a variety of vegetables such as tomatoes, chickpeas, celery, and carrot, coriander, and mint are added for a refreshing taste.',
-          price: 5.99,
+          price: 350,
           image: '/images/chorba.jpg',
           categoryId: 'entrees',
-          categoryName: 'Entrées',
+          categoryName: 'Entrees',
           nutritionInfo: {
             calories: 250,
             protein: '15g',
@@ -23,36 +23,21 @@ const menuData = {
             fat: '8g'
           },
           ingredients: ['meet d\'lamb', 'Tomatoes', 'chickpeas', 'Vermicelli', 'Celery', 'Carrottes', 'lemon', 'Coriander', 'Mint', 'spices'],
-          reviews: [
-            {
-              id: 'rev1',
-              userName: 'Ahmed K.',
-              rating: 5,
-              date: '2025-03-15',
-              comment: 'Excellent chorba, very authentic and tasty!'
-            },
-            {
-              id: 'rev2',
-              userName: 'Fatima B.',
-              rating: 4,
-              date: '2025-02-28',
-              comment: 'Delicious, but a little too spicy for my taste.'
-            }
-          ],
+           
           rating: 4.7,
           
           popular: true,
-          dietary: ['Sans gluten']
+          dietary: []
         },
         {
           id: 'bourek',
           name: 'Bourek',
           description: 'Brick pastry rolls stuffed with minced meat and spices',
           longDescription: 'Bourek is a convivial starter synonymous with sharing. These delicious rolls are made from brick pastry filled with kefta (spiced ground beef), parsley, and onions. They are often served when entertaining guests and during Ramadan.',
-          price: 6.50,
-          image: '/images/bourak.jpg',
+          price: 150,
+          image: '/images/bourek.jpg',
           categoryId: 'entries',
-          categoryName: 'Entries',
+          categoryName: 'Entrees',
           nutritionInfo: {
             calories: 320,
             protein: '18g',
@@ -76,13 +61,13 @@ const menuData = {
         },
         {
           id: 'chakchouka',
-          name: 'Chakchouka',
+          name: 'Chekchouka',
           description: 'Peppers and tomatoes simmered with eggs',
-          longDescription: 'Chakchouka is a popular dish throughout the Maghreb. It is prepared with peppers simmered with tomatoes and onions, then topped with eggs that cook on top. This savory dish is traditionally enjoyed with Algerian bread.',
-          price: 7.50,
-          image: '/image/chakchouka.jpg',
+          longDescription: 'Chekchouka is a popular dish throughout the Maghreb. It is prepared with peppers simmered with tomatoes and onions, then topped with eggs that cook on top. This savory dish is traditionally enjoyed with Algerian bread.',
+          price:300,
+          image: '/images/chekchouka.jpg',
           categoryId: 'entries',
-          categoryName: 'Entries',
+          categoryName: 'Entrees',
           nutritionInfo: {
             calories: 280,
             protein: '12g',
@@ -102,14 +87,14 @@ const menuData = {
           rating: 4.5,
           
           popular: false,
-          dietary: ['Végétarien']
+          dietary: []
         },
         
       ]
     },
     {
       id: 'main courses',
-      name: 'main courses',
+      name: 'Main Dishes',
       description: 'Tasty main dishes of traditional Algerian cuisine',
       dishes: [
         {
@@ -117,10 +102,10 @@ const menuData = {
           name: 'Royal Couscous',
           description: 'The Algerian national dish made with semolina, vegetables and meat',
           longDescription: 'Couscous is the Algerian national dish par excellence. This regal version is prepared with wheat semolina, a variety of vegetables (carrots, zucchini, turnips, chickpeas), and several meats (lamb, chicken, merguez sausage). The semolina is delicately drizzled with a flavorful broth and served in a large traditional dish.',
-          price: 14.99,
+          price: 650,
           image: '/images/couscous.jpg',
           categoryId: 'plats-principaux',
-          categoryName: 'Plats Principaux',
+          categoryName: 'Main Dishes',
           nutritionInfo: {
             calories: 650,
             protein: '35g',
@@ -154,10 +139,10 @@ const menuData = {
           name: 'Tajine Zitoune',
           description: 'Ragoût d\'agneau aux olives vertes et légumes',
           longDescription: 'Le Tajine Zitoune est un plat traditionnel originaire d\'Alger. Ce ragoût savoureux est préparé avec de l\'agneau (ou du poulet), des olives vertes et divers légumes comme les pommes de terre et les carottes. Son goût est relevé avec du thym, du laurier, du jus de citron et du safran ou du curcuma.',
-          price: 13.50,
+          price: 500,
           image: '/images/tajinezitone.jpg',
           categoryId: 'plats-principaux',
-          categoryName: 'Plats Principaux',
+          categoryName: 'Main Dishes',
           nutritionInfo: {
             calories: 580,
             protein: '32g',
@@ -184,10 +169,10 @@ const menuData = {
           name: 'Rechta Algéroise',
           description: 'Thin noodles with chicken and vegetables in a fragrant broth',
           longDescription: 'Rechta is a traditional dish from Algiers made from thin noodles made from semolina. They are served with a cinnamon-scented broth, chicken meat and vegetables such as turnips, chickpeas and zucchini. This dish is traditionally cooked for religious occasions like Eid-El-Fitr.',
-          price: 12.99,
+          price: 700,
           image: '/images/rechta.jpg',
           categoryId: 'plats-principaux',
-          categoryName: 'Plats Principaux',
+          categoryName: 'Main Dishes',
           nutritionInfo: {
             calories: 520,
             protein: '28g',
@@ -206,10 +191,10 @@ const menuData = {
           name: 'Berkoukes',
           description: 'Dish made with large grains of couscous, vegetables and meat',
           longDescription: 'Berkoukes is a traditional Algerian dish made from pasta shaped like large grains of couscous. In Kabylia, this dish is synonymous with celebration and is eaten after giving birth, when a baby cuts their first tooth, or at the inauguration of the first agricultural projects.',
-          price: 11.99,
+          price: 400,
           image: '/images/berkoukes.jpg',
           categoryId: 'plats-principaux',
-          categoryName: 'Plats Principaux',
+          categoryName: 'Main Dishes',
           nutritionInfo: {
             calories: 540,
             protein: '25g',
@@ -227,7 +212,7 @@ const menuData = {
     },
     {
       id: 'specialites-regionales',
-      name: 'Spécialités Régionales',
+      name: 'Regional Specialties',
       description: 'Découvrez les spécialités culinaires des différentes régions d\'Algérie',
       dishes: [
         {
@@ -235,10 +220,11 @@ const menuData = {
           name: 'Trida Constantinoise',
           description: 'Pâtes carrées avec poulet, pois chiches et sauce blanche',
           longDescription: 'La Trida est une spécialité originaire de Constantine, au Nord-Ouest de l\'Algérie. Ce plat est préparé avec des pâtes très fines et carrées faites à la main, accompagnées de poulet, de pois chiches, de carottes et d\'œufs durs, le tout servi avec une délicieuse sauce blanche.',
-          price: 12.50,
+          price: 650,
           image: '/images/trida.jpg',
           categoryId: 'specialites-regionales',
-          categoryName: 'Spécialités Régionales',
+          categoryName: 'Regional Specialties',
+
           nutritionInfo: {
             calories: 510,
             protein: '26g',
@@ -257,10 +243,11 @@ const menuData = {
           name: 'Tlitli Chaoui',
           description: 'Pâtes en forme de grain de riz avec sauce tomate et viande',
           longDescription: 'Le Tlitli est une délicieuse spécialité culinaire algérienne qui tient ses origines à l\'Est du pays, notamment dans les villes de Constantine, de Skikda et de Jijel. Fait à base de pâtes en forme de grain de riz, le Tlitli est mitonné en sauce tomate et accompagné de pois chiches, de viande et de nombreuses épices comme le Raz El Hanout.',
-          price: 11.99,
+          price: 450,
           image: '/images/tlitli.jpg',
           categoryId: 'specialites-regionales',
-          categoryName: 'Spécialités Régionales',
+          categoryName: 'Regional Specialties',
+
           nutritionInfo: {
             calories: 530,
             protein: '24g',
@@ -279,10 +266,11 @@ const menuData = {
           name: 'Chakhchoukha Biskria',
           description: 'Crumbed bread with tomato sauce and meat',
           longDescription: 'Chakhchoukha Biskria is a traditional recipe originating from the Biskra region. This dish consists of a traditional crumbled bread flatbread mixed with a rich tomato sauce and meat. It is a hearty and comforting dish, often served at special family occasions.',
-          price: 13.50,
+          price: 700,
           image: '/images/chakhchoukha.jpg',
           categoryId: 'specialites-regionales',
-          categoryName: 'Spécialités Régionales',
+          categoryName: 'Regional Specialties',
+
           nutritionInfo: {
             calories: 560,
             protein: '28g',
@@ -308,7 +296,7 @@ const menuData = {
           name: 'Makroudh',
           description: 'Diamond-shaped pastry filled with dates and coated in honey',
           longDescription: 'Makroudhs are traditional diamond-shaped pastries made from durum wheat semolina dough, then stuffed with dates and coated with honey and orange blossom. These delicious sweets are a staple of Algerian pastry.',
-          price: 4.50,
+          price: 90,
           image: '/images/makroudh.jpg',
           categoryId: 'desserts',
           categoryName: 'Desserts',
@@ -331,15 +319,15 @@ const menuData = {
           rating: 4.8,
           
           popular: true,
-          dietary: ['Végétarien']
+         
         },
         {
           id: 'baghrir',
           name: 'Baghrir',
           description: 'Thousand-hole semolina pancakes with honey syrup',
           longDescription: 'Baghrirs are traditional semolina pancakes, recognizable by their thousand tiny holes that form during cooking. They are served with a delicious honey syrup and orange blossom water, giving them a unique and refreshing taste.',
-          price: 3.99,
-          image: '/images/baghrir.jpg',
+          price: 120,
+          image: '/images/barrir.jpg',
           categoryId: 'desserts',
           categoryName: 'Desserts',
           nutritionInfo: {
@@ -353,15 +341,15 @@ const menuData = {
           rating: 4.6,
           
           popular: false,
-          dietary: ['Végétarien']
+          
         },
-        ,
+        
         {
           id: 'kalb-ellouz',
           name: 'Kalb Ellouz',
           description: 'Gâteau de semoule aux amandes nappé de sirop',
           longDescription: 'Le Kalb Ellouz est un délicieux gâteau de semoule aux amandes, nappé d\'un sirop parfumé. Ce dessert traditionnel algérien est à la fois moelleux et fondant, avec une texture unique qui ravit les papilles. Il est souvent servi lors des fêtes et célébrations.',
-          price: 4.99,
+          price: 100,
           image: '/images/kalb-ellouz.jpg',
           categoryId: 'desserts',
           categoryName: 'Desserts',
@@ -376,7 +364,7 @@ const menuData = {
           rating: 4.5,
           
           popular: false,
-          dietary: ['Végétarien']
+          
         }
       ]
     }

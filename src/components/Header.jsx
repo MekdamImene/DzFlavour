@@ -30,11 +30,11 @@ const Header = () => {
             <li><Link to="/about">About</Link></li>
           </ul>
         </nav>
-          {/*add search bar*/}
+          {/*add search bar*
           <div className='search-box'>
             <input type="text" placeholder='search'/>
             <img src="/images/search-b.png" alt="search icon"/>
-            </div>
+            </div>*/}
             
 
 

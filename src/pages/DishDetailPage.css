@@ -1,134 +1,269 @@
-/* DishDetailPage.css */
-
-/* Main dish detail page container */
 .dish-detail-page {
-    padding: 40px 20px;
-    background-color: #f8f9fa; /* Light background */
-    min-height: 100vh;
-  }
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.breadcrumb {
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  color: #0d702b;
+}
+.breadcrumb a {
+  color: #3f6fa1;
+  text-decoration: none;
+}
+.breadcrumb span {
+  font-weight: bold;
+}
+
+.dish-detail-container {
+  display: flex;
+  flex: 1 1 60%;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 40px;
+  flex-direction: row;
+}
+
+.dish-image-container {
+  flex: 1 1 45%;
+}
+.dish-image {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  max-height: 400px;
+}
+
+.dish-info-container {
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.dish-name {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #2f69b4;
+}
+
+.dish-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.dish-rating .stars {
+  color: #ffc628;
+  margin-right: 5px;
+  font-size: 25px ;
+}
+
+.dish-rating .rating-value {
+  font-weight: bold;
+  margin-right: 5px;
+  color: #70623d;
+   font-size:20px ;
+}
+
+
+
+.dish-price {
+  font-size: 25px;
+  margin-top: 12px;
+  font-weight: 700;
+   color: #0a9115;
+
+}
+
+.price-label {
+  color: #0a9115;
+  margin-right: 5px;
+}
+
+.price-amount {
+  color: #0a9115;
+  font-weight: bold;
+  font-size: 26px;
+}
+
+
+.currency-icon {
+  font-size:40px;
+  font-weight: bold;
+  color: #0a9115;
+  margin-right: 5px;
+  margin-top:8px;
+  vertical-align: middle;
   
-  /* Dish title */
-  .dish-detail-page h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-weight: bold;
-    color: #343a40;
-  }
+}
+.dish-views {
+  font-size: 1.2rem;
+  margin-top: -10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #1e1f1f;
+}
+.solds{
+  font-size: 1.4rem;
+  margin-top: 14px;
+  margin-left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #111111;
+  font-weight: 500;
+
+}
+
+.dish-description {
+  margin-top: 15px;
+  line-height: 1.6;
+  color: #3a3838;
+}
+
+.dish-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  /*border: 1px solid #3584d8;*/
+  border-radius: 5px;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.quantity-btn {
+  background-color: #3584d8;
+  color: white;
+  border: none;
+  width: 46px;
+  height: 46px;
+  font-size: 19px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+}
+
+.quantity-btn:hover {
+  background-color: #0056b3;
+}
+
+.quantity-input {
+  width: 40px;
+  font-weight: 500;
+  text-align: center;
+  border: none;
+  font-size: 17px;
+  outline: none;
+  padding: 8px;
   
-  /* Tab buttons container */
-  .tab-buttons {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 30px;
+}
+
+/* Prevent input from growing too tall */
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantity-input[type=number] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+
+.add-to-cart-btn {
+  padding: 10px 20px;
+  background-color: #ffcc40;
+  color: rgb(70, 70, 70);
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #0056b3;
+}
+
+.dietary-info {
+  margin-top: 15px;
+}
+.dietary-tag {
+  background: #d1ecf1;
+  color: #0c5460;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.dish-tabs {
+  margin-top: 40px;
+}
+
+.tabs-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  padding: 9px 15px;
+  border: none;
+  border-radius: 30px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+  background-color: #3584d8;
+  color: white;
+}
+
+.tab-content {
+  background: #fafafa;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.ingredients-list {
+  list-style: disc;
+  padding-left: 20px;
+  color: #1a1818;
+}
+
+
+
+
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dish-detail-container {
+    flex-direction: column;
   }
-  
-  /* Tab button */
-  .tab-btn {
-    background-color: #ffffff;
-    border: 1px solid #dee2e6;
-    padding: 10px 20px;
-    border-radius: 50px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    color: #495057;
+
+  .quantity-selector {
+    flex-wrap: nowrap;
   }
-  
-  .tab-btn:hover {
-    background-color: #e9ecef;
-  }
-  
-  /* Active tab button */
-  .tab-btn.active {
-    background-color: #0d6efd;
-    color: #ffffff;
-    border-color: #0d6efd;
-  }
-  
-  /* Tab content area */
-  .tab-content {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-    max-width: 900px;
-    margin: 0 auto 40px auto;
-  }
-  
-  /* Ingredients and nutrition sections */
-  .ingredients-tab h3,
-  .nutrition-tab h3,
-  .reviews-tab h3 {
-    margin-bottom: 20px;
-    color: #0d6efd;
-  }
-  
-  /* Ingredients list */
-  .ingredients-list {
-    list-style-type: disc;
-    padding-left: 20px;
-  }
-  
-  .ingredients-list li {
-    margin-bottom: 8px;
-    font-size: 1rem;
-    color: #495057;
-  }
-  
-  /* Related dishes section */
-  .related-dishes {
-    margin-top: 50px;
-  }
-  
-  .related-dishes h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #343a40;
-  }
-  
-  /* Related dishes grid */
-  .related-dishes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    padding: 0 10px;
-  }
-  
-  /* Related dish card */
-  .related-dish-card {
-    text-decoration: none;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    color: #000000;
-  }
-  
-  .related-dish-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  /* Related dish image */
-  .related-dish-card img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 15px;
-  }
-  
-  /* Related dish name */
-  .related-dish-card h3 {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-  }
-  
-  /* Related dish price */
-  .related-dish-price {
-    font-weight: bold;
-    color: #0d6efd;
-    font-size: 1rem;
-  }
+}

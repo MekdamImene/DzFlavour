@@ -1,8 +1,6 @@
-// api.js - Service d'API pour connecter le frontend au backend
-
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000/api';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -11,146 +9,58 @@ const api = axios.create({
   }
 });
 
-// Services pour le menu
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('authToken');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error('API Error:', error.response?.data || error.message);
+    return Promise.reject(error);
+  }
+);
+
 export const menuService = {
-  // Récupérer tout le menu
-  getMenu: async () => {
-    try {
-      const response = await api.get('/menu');
-      return response.data;
-    } catch (error) {
-      console.error('Erreur lors de la récupération du menu:', error);
-      throw error;
-    }
-  },
-
-  // Récupérer toutes les catégories
-  getCategories: async () => {
-    try {
-      const response = await api.get('/menu/categories');
-      return response.data;
-    } catch (error) {
-      console.error('Erreur lors de la récupération des catégories:', error);
-      throw error;
-    }
-  },
-
-  // Récupérer une catégorie spécifique
-  getCategory: async (categoryId) => {
-    try {
-      const response = await api.get(`/menu/categories/${categoryId}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Erreur lors de la récupération de la catégorie ${categoryId}:`, error);
-      throw error;
-    }
-  },
-
-  // Récupérer un plat spécifique
-  getDish: async (dishId) => {
-    try {
-      const response = await api.get(`/menu/dishes/${dishId}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Erreur lors de la récupération du plat ${dishId}:`, error);
-      throw error;
-    }
-  },
-
-  // Récupérer les plats populaires
-  getPopularDishes: async () => {
-    try {
-      const response = await api.get('/menu/popular');
-      return response.data;
-    } catch (error) {
-      console.error('Erreur lors de la récupération des plats populaires:', error);
-      throw error;
-    }
-  },
-
-  // Rechercher des plats
-  searchDishes: async (query) => {
-    try {
-      const response = await api.get('/search', { params: { query } });
-      return response.data;
-    } catch (error) {
-      console.error('Erreur lors de la recherche de plats:', error);
-      throw error;
-    }
-  }
+  getMenu: () => api.get('/menu').then(res => res.data),
+  getCategories: () => api.get('/menu/categories').then(res => res.data),
+  getCategory: (id) => api.get(`/menu/categories/${id}`).then(res => res.data),
+  getDish: (id) => api.get(`/menu/dishes/${id}`).then(res => res.data),
+  getPopularDishes: () => api.get('/menu/popular').then(res => res.data),
+  searchDishes: (query) => api.get('/search', { params: { query } }).then(res => res.data),
 };
 
-// Services pour les commandes
 export const orderService = {
-  // Créer une nouvelle commande
-  createOrder: async (order) => {
-    try {
-      const response = await api.post('/orders', { order });
-      return response.data;
-    } catch (error) {
-      console.error('Erreur lors de la création de la commande:', error);
-      throw error;
-    }
-  },
-
-  // Récupérer une commande spécifique
-  getOrder: async (orderId) => {
-    try {
-      const response = await api.get(`/orders/${orderId}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Erreur lors de la récupération de la commande ${orderId}:`, error);
-      throw error;
-    }
-  }
+  createOrder: (order) => api.post('/orders', order).then(res => res.data),
+  getOrder: (id) => api.get(`/orders/${id}`).then(res => res.data),
+  updateOrder: (id, updates) => api.patch(`/orders/${id}`, updates).then(res => res.data),
+  cancelOrder: (id) => api.delete(`/orders/${id}`).then(res => res.data),
 };
 
-// Services pour les réservations
 export const reservationService = {
-  // Créer une nouvelle réservation
-  createReservation: async (reservation) => {
-    try {
-      const response = await api.post('/reservations', { reservation });
-      return response.data;
-    } catch (error) {
-      console.error('Erreur lors de la création de la réservation:', error);
-      throw error;
-    }
-  }
+  createReservation: (resv) => api.post('/reservations', resv).then(res => res.data),
+  getReservation: (id) => api.get(`/reservations/${id}`).then(res => res.data),
+  updateReservation: (id, updates) => api.patch(`/reservations/${id}`, updates).then(res => res.data),
+  cancelReservation: (id) => api.delete(`/reservations/${id}`).then(res => res.data),
 };
 
-// Services pour les avis
 export const reviewService = {
-  // Ajouter un avis sur un plat
-  addReview: async (dishId, review) => {
-    try {
-      const response = await api.post('/reviews', { dishId, review });
-      return response.data;
-    } catch (error) {
-      console.error('Erreur lors de l\'ajout de l\'avis:', error);
-      throw error;
-    }
-  }
+  addReview: (dishId, review) => api.post('/reviews', { dishId, ...review }).then(res => res.data),
+  getDishReviews: (dishId) => api.get(`/reviews/${dishId}`).then(res => res.data),
+  deleteReview: (id) => api.delete(`/reviews/${id}`).then(res => res.data),
 };
 
-// Services pour les promotions
 export const promotionService = {
-  // Récupérer toutes les promotions
-  getPromotions: async () => {
-    try {
-      const response = await api.get('/promotions');
-      return response.data;
-    } catch (error) {
-      console.error('Erreur lors de la récupération des promotions:', error);
-      throw error;
-    }
-  }
+  getPromotions: () => api.get('/promotions').then(res => res.data),
+  getPromotion: (id) => api.get(`/promotions/${id}`).then(res => res.data),
 };
 
-export default {
-  menuService,
-  orderService,
-  reservationService,
-  reviewService,
-  promotionService
+export const authService = {
+  login: (credentials) => api.post('/auth/login', credentials).then(res => res.data),
+  register: (userData) => api.post('/auth/register', userData).then(res => res.data),
+  getUserProfile: () => api.get('/auth/profile').then(res => res.data),
 };

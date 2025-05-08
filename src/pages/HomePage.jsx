@@ -42,7 +42,7 @@ const HomePage = () => {
             </div>
           )}
            <div className="view-all-container text-center mt-4"> 
-            <Link to="/menu" className="btn btn-secondary">Voir Tout</Link>
+            <Link to="/menu" className="btn btn-secondary">View more</Link>
           </div> 
         </div>
       </section>

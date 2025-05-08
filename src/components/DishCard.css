@@ -1,97 +1,151 @@
-/* DishCard.css */
+.dish-card-link {
+  text-decoration: none;
+  color: #0f4980;
+
+}
 
 .dish-card {
-    background: #fff;
-    border: 1px solid #dee2e6;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 7px 12px rgba(0, 0, 0, 0.603);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+  background: #fff;
+  border: 1.5px solid #eeeeea;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dish-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.15);
+}
+
+/*.dish-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 500px;
+ /* overflow: hidden;*
+}*/
+
+.dish-image-wrapper img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+
+.dish-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #fcc00d;
+  color: #212122;
+  padding: 5px 13px;
+  font-size: 0.8rem;
+  border-radius: 0.5rem;
+ font-weight: bold;
+}
+
+.dish-card-body {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.dish-title {
+  font-size: 23px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.dish-description {
+  font-size: 15px;
+  color: #686969;
+  min-height: 60px;
+  margin-bottom: 8px;
   
-  .dish-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-  }
+}
+
+.dish-meta {
   
-  .dish-image img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-    
-  }
+font-size: 14px;
+  color: #f0e6e6;
+  margin-bottom: 16px;
+}
+
+.dish-rating {
+  cursor: pointer;
+  color: #ffee07;
+  margin-bottom: 0px;
+  margin-top: -8px ;
+  margin-left: 6px;
+ 
+}
+
+.stars {
+  font-size: 22px;
+  font-family: Arial, sans-serif;
+}
+
+.rating-text {
+  margin-left: 6px;
+  color: #6b6b6b;
+}
+
+.dish-views {
+  font-size: 16px;  
+  font-weight: bold;       /* Size of the text */
+  color: #726f6f;             /* Text color */
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  margin-left: 6px;
+                 
+}
+
+.dish-views .eye-icon {
+ font-size: 18px;         /* Size of the eye icon */
+  color: #555;  
+         
+}
+
+.dish-price {
+  font-size: 40px ;
+  justify-content: flex-end;
+  font-weight :bold;
+  margin-top: 0px;
+  color: #096611;
+  margin-bottom: 8x;
+  margin-right: 9px;
   
-  .popular-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: #ffd207;
-    color: #212529;
-    padding: 20px 10px;
-    font-size: 0.8rem;
-    border-radius: 0.5rem;
-    font-weight: bold;
-  }
   
-  .dish-info {
-    padding: 1rem;
-  }
+}
+.currency-icon {
+  font-size:30px;
+  font-weight: bold;
+  color: #0a9115;
+  margin-right: 5px;
+  margin-top:8px;
+  vertical-align: middle;
   
-  .dish-name {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #212529;
-    margin-bottom: 0.5rem;
-  }
-  
-  .dish-description {
-    font-size: 0.9rem;
-    color: #6c757d;
-    margin-bottom: 1rem;
-    min-height: 60px;
-  }
-  
-  .dish-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .dish-rating {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #ffc107;
-    font-size: 1.1rem;
-    cursor: pointer;
-  }
-  
-  .stars {
-    font-size: 1.5rem;
-  }
-  
-  .dish-views,
-  .dish-price {
-    font-size: 0.9rem;
-    color: #6c757d;
-  }
-  
-  .add-to-cart-btn {
-    background: #0d6efd;
-    border: none;
-    color: white;
-    padding: 0.6rem 1rem;
-    font-size: 1rem;
-    border-radius: 0 0 1rem 1rem;
-    width: 100%;
-    transition: background 0.3s;
-  }
-  
-  .add-to-cart-btn:hover {
-    background: #0b5ed7;
-  }
+}
+
+.add-to-cart-btn {
+  background-color: #ffd900;
+  color: rgb(34, 44, 70);
+  border: none;
+  padding:12px;
+  width: 100%;
+  border-radius: 7px;
+  font-weight: bold;
+  font-size:  1.15rem;
+  transition: background-color 0.4s;
+}
+
+.add-to-cart-btn:hover {
+ background-color: #1b6f91;
+  color: #eeeeea;
+}

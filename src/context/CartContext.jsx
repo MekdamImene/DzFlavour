@@ -1,18 +1,28 @@
 // CartContext.js
 import React, { createContext, useState, useEffect, useContext } from 'react';
 
+// Create the Cart context
 export const CartContext = createContext();
 
+// Create the provider for the Cart context
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
-    const savedCart = localStorage.getItem('cart');
-    return savedCart ? JSON.parse(savedCart) : [];
+    try {
+      const savedCart = localStorage.getItem('cart');
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+      console.error('Failed to parse cart data from localStorage:', error);
+      localStorage.removeItem('cart'); // Remove invalid data
+      return [];
+    }
   });
 
+  // Update localStorage whenever cartItems change
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
+  // Add a product to the cart
   const addToCart = (product, quantity = 1) => {
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item.id === product.id);
@@ -26,14 +36,20 @@ export const CartProvider = ({ children }) => {
         return [...prevItems, { ...product, quantity }];
       }
     });
+
+    const soldkey=`dish-${product.id}-sold`;
+    const currentsold = parseInt(localStorage.getItem(soldkey))||0;
+    localStorage.setItem(soldkey,currentsold+quantity);
   };
 
+  // Remove a product from the cart
   const removeFromCart = (productId) => {
     setCartItems(prevItems =>
       prevItems.filter(item => item.id !== productId)
     );
   };
 
+  // Update quantity of a product in the cart
   const updateQuantity = (productId, newQuantity) => {
     if (newQuantity < 1) return;
     setCartItems(prevItems =>
@@ -45,14 +61,17 @@ export const CartProvider = ({ children }) => {
     );
   };
 
+  // Get the total price of all items in the cart
   const getCartTotal = () => {
     return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
+  // Get the total count of all items in the cart
   const getCartItemsCount = () => {
     return cartItems.reduce((count, item) => count + item.quantity, 0);
   };
 
+  // Clear the entire cart
   const clearCart = () => {
     setCartItems([]);
   };
@@ -74,7 +93,7 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-
+// Custom hook to use the Cart context
 export const useCart = () => {
   return useContext(CartContext);
 };

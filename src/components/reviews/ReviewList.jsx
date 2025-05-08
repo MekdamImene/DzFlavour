@@ -1,39 +1,89 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import './ReviewList.css';
 
-// Component to display reviews for a dish
-const ReviewList = ({ dishId }) => {
+const ReviewList = ({ dishId, refreshTrigger }) => {
   const [reviews, setReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [expandedReview, setExpandedReview] = useState(null);
 
-  // Fetch reviews from API or data source on component mount
   useEffect(() => {
-    const fetchReviews = async () => {
-      // Replace with actual API or data source
-      const response = await fetch(`http://localhost:3000/api/reviews/${dishId}`);
-      const data = await response.json();
-      setReviews(data);
-    };
+    setIsLoading(true);
+    setError(null);
+    try {
+      const storedReviews = JSON.parse(localStorage.getItem(`reviews-${dishId}`)) || [];
+      setReviews(storedReviews);
+    } catch (err) {
+      setError('Failed to load reviews');
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [dishId, refreshTrigger]);
 
-    fetchReviews();
-  }, [dishId]); // Re-fetch reviews if dishId changes
+  const toggleReview = (reviewId) => {
+    setExpandedReview(expandedReview === reviewId ? null : reviewId);
+  };
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  const renderRatingStars = (rating) => {
+    return (
+      <div className="rating-stars">
+        {[...Array(5)].map((_, i) => (
+          <span key={i} className={`star ${i < rating ? 'filled' : ''}`}>
+            ★
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  if (isLoading) return <div className="loading">Loading reviews...</div>;
+  if (error) return <div className="error">Error: {error}</div>;
 
   return (
-    <div>
-      <h3>Reviews</h3>
+    <div className="review-list-container">
+      <h2 className="review-list-header">Customer Reviews ({reviews.length})</h2>
+
       {reviews.length === 0 ? (
-        <p>No reviews yet.</p>
+        <p className="no-reviews">Be the first to review this dish!</p>
       ) : (
-        <ul>
+        <ul className="review-list">
           {reviews.map((review) => (
-            <li key={review.id}>
-              <strong>{review.username}</strong>
-              <p>{review.comment}</p>
-              <p>Rating: {review.rating} / 5</p>
+            <li key={review.id} className="review-item">
+              <div className="review-summary" onClick={() => toggleReview(review.id)}>
+                <div className="review-meta">
+                  <span className="review-author">{review.username}</span>
+                  <span className="review-date">{formatDate(review.date)}</span>
+                </div>
+                {renderRatingStars(review.rating)}
+                <p className="review-excerpt">
+                  {expandedReview === review.id
+                    ? review.comment
+                    : `${review.comment.substring(0, 100)}${review.comment.length > 100 ? '...' : ''}`}
+                </p>
+                {review.comment.length > 10 && (
+                  <button className="read-more-btn">
+                    {expandedReview === review.id ? 'Show less' : 'Read more'}
+                  </button>
+                )}
+              </div>
             </li>
           ))}
         </ul>
       )}
     </div>
   );
+};
+
+ReviewList.propTypes = {
+  dishId: PropTypes.string.isRequired,
+  refreshTrigger: PropTypes.any,
 };
 
 export default ReviewList;

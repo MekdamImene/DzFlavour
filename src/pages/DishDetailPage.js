@@ -5,7 +5,8 @@ import { useParams, Link } from 'react-router-dom';
 import { useMenu } from '../context/MenuContext';
 import { useCart } from '../context/CartContext';
 import './DishDetailPage.css';
-
+import { FaEye } from "react-icons/fa";
+import { MdSell } from "react-icons/md";
 // Composants
 import NutritionInfo from '../components/NutritionInfo';
 import ReviewList from '../components/reviews/ReviewList';
@@ -18,13 +19,32 @@ const DishDetailPage = () => {
   const [dish, setDish] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
+  const [views, setViews] = useState(0);
+  
 
-  useEffect(() => {
-    if (!isLoading) {
-      const foundDish = getDishById(dishId);
-      setDish(foundDish);
-    }
+  
+  useEffect(() => { 
+    if (!isLoading) { 
+      const foundDish = getDishById(dishId); 
+      
+      //  Only update `sold` from localStorage (leave views as is)
+      const savedSold = parseInt(localStorage.getItem(`dish-${dishId}-sold`)) || 0;
+      
+      //  Merge with existing dish data (preserve other properties)
+      setDish({ 
+        ...foundDish,
+        sold: savedSold  // Only this is guaranteed to be synced with localStorage
+      });
+      
+      // Views are loaded but not modified here
+      const savedViews = localStorage.getItem(`dish-${dishId}-views`);
+      setViews(savedViews ? parseInt(savedViews) : 0);
+    } 
   }, [dishId, getDishById, isLoading]);
+
+
+
+ 
 
   const handleQuantityChange = (e) => {
     const value = parseInt(e.target.value);
@@ -40,8 +60,16 @@ const DishDetailPage = () => {
     }
   };
 
+  const handleAddReview = (newReview)=>{
+    const updatedDish ={
+      ...dish,
+      reviews:[...dish.reviews,newReview]
+    };
+    setDish(updatedDish); 
+  };
+
   if (isLoading) {
-    return <div className="loading">Chargement...</div>;
+    return <div className="loading">Loading...</div>;
   }
 
   if (error) {
@@ -49,13 +77,13 @@ const DishDetailPage = () => {
   }
 
   if (!dish) {
-    return <div className="not-found">Plat non trouvé</div>;
+    return <div className="not-found">Dish not found</div>;
   }
 
   return (
     <div className="dish-detail-page">
       <div className="breadcrumb">
-        <Link to="/">Accueil</Link> &gt; 
+        <Link to="/">Welcome</Link> &gt; 
         <Link to="/menu">Menu</Link> &gt; 
         <Link to={`/category/${dish.categoryId}`}>{dish.categoryName}</Link> &gt; 
         <span>{dish.name}</span>
@@ -64,11 +92,7 @@ const DishDetailPage = () => {
       <div className="dish-detail-container">
         <div className="dish-image-container">
           <img src={dish.image} alt={dish.name} className="dish-image" />
-          {dish.videoUrl && (
-            <a href={dish.videoUrl} target="_blank" rel="noopener noreferrer" className="video-link">
-              <i className="fa fa-play-circle"></i> Voir la vidéo de préparation
-            </a>
-          )}
+          
         </div>
 
         <div className="dish-info-container">
@@ -78,13 +102,18 @@ const DishDetailPage = () => {
             <div className="dish-rating">
               <span className="stars">{'★'.repeat(Math.floor(dish.rating))}</span>
               <span className="rating-value">{dish.rating.toFixed(1)}</span>
-              <span className="reviews-count">({dish.reviews.length} avis)</span>
+              <span className="reviews-count"></span>
             </div>
-            <div className="dish-sales">{dish.salesCount || 0} ventes</div>
-            <div className="dish-price">{dish.price.toFixed(2)} ₫ </div>
-          </div>
-
-          <p className="dish-description">{dish.description}</p>
+            <div className="dish-price">
+               <span className="price-label">Price:</span>
+               <span className="price-amount"> {dish.price}</span>
+               <span className="currency-icon">₫</span>
+              </div>
+            </div>
+          
+            <h2 className="dish-views"><FaEye /> Views : {views}</h2>
+            <h3 className="solds"><MdSell /> Sold : {dish.sold || 0}</h3>
+             <p className="dish-description">{dish.description}</p>
 
           <div className="dish-actions">
             <div className="quantity-selector">
@@ -92,7 +121,7 @@ const DishDetailPage = () => {
                 onClick={() => quantity > 1 && setQuantity(quantity - 1)}
                 className="quantity-btn"
               >
-                -
+              -
               </button>
               <input 
                 type="number" 
@@ -104,12 +133,13 @@ const DishDetailPage = () => {
               <button 
                 onClick={() => setQuantity(quantity + 1)}
                 className="quantity-btn"
-              >
-                +
+              > +
+              
+              
               </button>
             </div>
             <button onClick={handleAddToCart} className="add-to-cart-btn">
-              Ajouter au panier
+            Add to cart
             </button>
           </div>
 
@@ -121,12 +151,10 @@ const DishDetailPage = () => {
             </div>
           )}
         </div>
-      </div>
-
-      <div className="dish-tabs">
+      </div> <div className="dish-tabs">
         <div className="tabs-header">
           <button 
-            className={`tab-btn ${activeTab === 'description' ? 'active' : ''}`}
+            className={`tab-btn ${activeTab === 'description' ? 'active' :''}`}
             onClick={() => setActiveTab('description')}
           >
             Description
@@ -135,19 +163,19 @@ const DishDetailPage = () => {
             className={`tab-btn ${activeTab === 'ingredients' ? 'active' : ''}`}
             onClick={() => setActiveTab('ingredients')}
           >
-            Ingrédients
+            Ingredients
           </button>
           <button 
             className={`tab-btn ${activeTab === 'nutrition' ? 'active' : ''}`}
             onClick={() => setActiveTab('nutrition')}
           >
-            Informations nutritionnelles
+            Nutritional Information
           </button>
           <button 
             className={`tab-btn ${activeTab === 'reviews' ? 'active' : ''}`}
             onClick={() => setActiveTab('reviews')}
           >
-            Avis ({dish.reviews.length})
+            Reviews 
           </button>
         </div>
 
@@ -155,7 +183,7 @@ const DishDetailPage = () => {
           {activeTab === 'description' && (
             <div className="description-tab">
               <p>{dish.longDescription || dish.description}</p>
-              <p>Ce plat traditionnel algérien est préparé avec soin selon les recettes authentiques transmises de génération en génération.</p>
+              <p>This traditional Algerian dish is carefully prepared according to authentic recipes passed down from generation to generation.</p>
             </div>
           )}
 
@@ -172,37 +200,24 @@ const DishDetailPage = () => {
 
           {activeTab === 'nutrition' && (
             <div className="nutrition-tab">
-              <h3>Valeurs nutritionnelles</h3>
+              <h3>Nutritional values</h3>
               <NutritionInfo nutritionInfo={dish.nutritionInfo} />
             </div>
           )}
 
           {activeTab === 'reviews' && (
             <div className="reviews-tab">
-              <h3>Avis clients</h3>
+              <h3>customer reviews</h3>
               <ReviewList reviews={dish.reviews} />
-              <ReviewForm dishId={dish.id} />
+              <ReviewForm dishId={dish.id} 
+              onAddReview={handleAddReview}  />
             </div>
           )}
         </div>
       </div>
-
-      {dish.relatedDishes && dish.relatedDishes.length > 0 && (
-        <div className="related-dishes">
-          <h2>Vous pourriez aussi aimer</h2>
-          <div className="related-dishes-grid">
-            {dish.relatedDishes.map(relatedDish => (
-              <Link to={`/dish/${relatedDish.id}`} key={relatedDish.id} className="related-dish-card">
-                <img src={relatedDish.image} alt={relatedDish.name} />
-                <h3>{relatedDish.name}</h3>
-                <div className="related-dish-price">{relatedDish.price.toFixed(2)} €</div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
+      
   );
 };
 
-export default DishDetailPage;
+export default DishDetailPage; 

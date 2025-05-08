@@ -1,76 +1,192 @@
 import React, { useState } from 'react';
+import './ReviewForm.css';
 
 const ReviewForm = ({ dishId, onAddReview }) => {
-  const [username, setUsername] = useState('');
-  const [rating, setRating] = useState(5);
-  const [comment, setComment] = useState('');
+  const [formData, setFormData] = useState({
+    username: '',
+    rating: 0,
+    comment: ''
+  });
+  const [hoverRating, setHoverRating] = useState(0);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
-  // Handle review submission
-  const handleSubmit = async (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const validateForm = () => {
+    if (!formData.username.trim()) {
+      throw new Error('Please enter your name');
+    }
+    if (formData.rating === 0) {
+      throw new Error('Please select a rating');
+    }
+    if (!formData.comment.trim()) {
+      throw new Error('Please write your review');
+    }
+    if (formData.comment.trim().length < 10) {
+      throw new Error('Review should be at least 10 characters');
+    }
+  };
+
+  const handlePreview = (e) => {
     e.preventDefault();
+    setError('');
+    try {
+      validateForm();
+      setShowConfirmation(true);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    setError('');
+  
+    try {
+      // Bypass the API call for now
+      console.log('Review submission skipped (simulated).');
+  
+      // Optionally call the callback with local data
+      const newReview = {
+        username: formData.username.trim(),
+        rating: formData.rating,
+        comment: formData.comment.trim(),
+        date: new Date().toISOString()
+      };
+      onAddReview(newReview); // Optional: simulate local success
+  
+      // Reset form
+      setFormData({
+        username: '',
+        rating: 0,
+        comment: ''
+      });
+      setHoverRating(0);
+      setSuccess('Thank you for your review!');
+      setShowConfirmation(false);
+      
+      setTimeout(() => setSuccess(''), 3000);
+    } catch (err) {
+      setError(err.message || 'Failed to submit review. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  
 
-    const newReview = {
-      dishId,
-      username,
-      rating,
-      comment,
-    };
-
-    // Send review to API or store in database
-    const response = await fetch('http://localhost:3000/api/reviews', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newReview),
-    });
-
-    const data = await response.json();
-
-    // Call onAddReview passed from the parent to update the reviews list
-    onAddReview(data);
+  const handleEdit = () => {
+    setShowConfirmation(false);
   };
 
   return (
-    <div>
+    <div className="review-form">
       <h3>Leave a Review</h3>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Your Name</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+      {error && <div className="error-message">{error}</div>}
+      {success && <div className="success-message">{success}</div>}
+      
+      {!showConfirmation ? (
+        <form onSubmit={handlePreview}>
+          <div className="form-group">
+            <label htmlFor="username">Your Name</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+          
+          <div className="form-group">
+            <label>Your Rating</label>
+            <div className="star-rating">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  type="button"
+                  key={star}
+                  className={`star ${star <= (hoverRating || formData.rating) ? 'selected' : ''}`}
+                  onClick={() => setFormData(prev => ({ ...prev, rating: star }))}
+                  onMouseEnter={() => setHoverRating(star)}
+                  onMouseLeave={() => setHoverRating(0)}
+                  aria-label={`Rate ${star} star${star !== 1 ? 's' : ''}`}
+                >
+                  ★
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="comment">Your Review</label>
+            <textarea
+              id="comment"
+              name="comment"
+              value={formData.comment}
+              onChange={handleChange}
+              placeholder="Share your thoughts about this dish..."
+              required
+              minLength="10"
+              rows="4"
+            />
+          </div>
+          
+          <button type="submit" className="btn preview-btn">
+            Preview Review
+          </button>
+        </form>
+      ) : (
+        <div className="review-confirmation">
+          <h4>Please confirm your review</h4>
+          <div className="review-preview">
+            <p><strong>Name:</strong> {formData.username}</p>
+            <p><strong>Rating:</strong> 
+              <span className="star-rating">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <span key={star} className={`star ${star <= formData.rating ? 'selected' : ''}`}>
+                    ★
+                  </span>
+                ))}
+              </span>
+            </p>
+            <p><strong>Review:</strong> {formData.comment}</p>
+          </div>
+          <div className="confirmation-buttons">
+          <button 
+  type="button" 
+  onClick={handleEdit}
+  className="btn edit-btn"
+>
+  Add Review
+</button>
+
+            <button 
+              type="button" 
+              onClick={handleSubmit}
+              className="btn submit-btn"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <span className="spinner"></span>
+                  Submitting...
+                </>
+              ) : (
+                'Submit Review'
+              )}
+            </button>
+          </div>
         </div>
-        <div>
-          <label htmlFor="rating">Rating</label>
-          <select
-            id="rating"
-            value={rating}
-            onChange={(e) => setRating(Number(e.target.value))}
-            required
-          >
-            {[1, 2, 3, 4, 5].map((value) => (
-              <option key={value} value={value}>
-                {value} / 5
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label htmlFor="comment">Your Comment</label>
-          <textarea
-            id="comment"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Submit Review</button>
-      </form>
+      )}
     </div>
   );
 };

@@ -1,12 +1,12 @@
 // MenuContext.js - Contexte pour la gestion des données du menu
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import menuData from '../data/menuData'; // تأكد من المسار الصحيح
+import menuData from '../data/menuData'; 
 
 
 const MenuContext = createContext();
 
-// مكون الـ Provider
+
 export const MenuProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -23,15 +23,15 @@ export const MenuProvider = ({ children }) => {
 
         return () => clearTimeout(timer);
       } else {
-        throw new Error('بيانات القائمة غير موجودة');
+        throw new Error('error');
       }
     } catch (err) {
-      setError('حدث خطأ أثناء تحميل البيانات');
+      setError('faile loding!');
       setIsLoading(false);
     }
   }, []);
 
-  // دالة للحصول على طبق معين بواسطة الـ ID
+ 
   const getDishById = (dishId) => {
     for (const category of categories) {
       const dish = category.dishes.find(dish => dish.id === dishId);
@@ -40,7 +40,7 @@ export const MenuProvider = ({ children }) => {
     return null;
   };
 
-  // دالة للحصول على الأطباق الشعبية
+ 
   const getPopularDishes = () => {
     return categories
       .flatMap(category => category.dishes)
@@ -48,7 +48,6 @@ export const MenuProvider = ({ children }) => {
       .sort((a, b) => b.rating - a.rating);
   };
 
-  // دالة للبحث عن الأطباق
   const searchDishes = (query) => {
     if (!query) return [];
     
@@ -61,7 +60,7 @@ export const MenuProvider = ({ children }) => {
       );
   };
 
-  // دالة للحصول على الأطباق حسب الفئة
+
   const getDishesByCategory = (categoryId) => {
     if (categoryId === 'all') {
       return categories.flatMap(category => category.dishes);
@@ -90,7 +89,8 @@ export const MenuProvider = ({ children }) => {
 export const useMenu = () => {
   const context = useContext(MenuContext);
   if (!context) {
-    throw new Error('يجب استخدام useMenu داخل MenuProvider');
+    throw new Error('use useMenu in MenuProvider!');
   }
   return context;
-};
+}; 
+// MenuContext.js - Context for menu data management

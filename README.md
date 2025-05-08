@@ -1,70 +1,132 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# dz_flavour 🍽
 
-## Available Scripts
+A modern web application for exploring and ordering delicious dishes with nutritional insights and user reviews.
 
-In the project directory, you can run:
+## Project Description
 
-### `npm start`
+dz_flavour is a comprehensive restaurant/food delivery web app that allows users to:
+- Browse an organized menu of dishes
+- View detailed dish information including nutritional facts
+- Add items to a shopping cart and complete checkout
+- Read and submit reviews for dishes
+- Enjoy a seamless user experience from discovery to order placement
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Built with React, this application features context API for state management, responsive design, and interactive components.
+It provides users with:
+A categorized menu of dishes
+Detailed nutritional information
+User-submitted reviews
+A seamless shopping cart and checkout system
+## Tech Stack
+Frontend: React (with Context API)
+Styling: CSS Modules
+State Management: React Context API
+Responsive Design: Mobile to desktop
+Testing: React Testing Library
+Setup Instructions
+Prerequisites
+Node.js v14+
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+npm or yarn
 
-### `npm test`
+Installation
+bash
+Copy code
+git clone https://github.com/MekdamImene/dz_flavour.git
+cd dz_flavour
+npm install
+npm start
+## Project Structure Overview
+1. src/components/
+Reusable UI components used across pages:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Review Components (/reviews/)
 
-### `npm run build`
+ReviewForm.jsx & ReviewForm.css: Review submission form
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+ReviewList.jsx & ReviewList.css: Displays user reviews
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+DishCard.jsx & .css: Displays a dish card (image, name, price)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Header.jsx & .css: Navigation bar (logo, links)
 
-### `npm run eject`
+Footer.js: Page footer
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+HeroSection.jsx & .css: Promotional banner for homepage
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+NutritionInfo.jsx: Nutritional data for dishes
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+These are UI components that can be reused in multiple pages. Each .jsx file is a functional component, and each .css file styles it.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. src/context/
+Holds React Context API logic for global state:
 
-## Learn More
+CartContext.jsx: Manages cart state (add/remove, total price)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+MenuContext.js: Manages menu data and filters
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This folder manages global states like cart and menu without prop drilling.
 
-### Code Splitting
+3. src/data/
+Static data used throughout the app:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+menuData.js: Contains hardcoded dish information
 
-### Analyzing the Bundle Size
+This file stores hardcoded menu data used to populate the menu page.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+4. src/pages/
+Defines the main pages/routes of the app:
 
-### Making a Progressive Web App
+AboutPage.js: About us
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+CartPage.js & .css: Shopping cart
 
-### Advanced Configuration
+CategoryPage.jsx: Dishes by category
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+CheckoutPage.js & .css: Checkout form and summary
 
-### Deployment
+DishDetailPage.js & .css: Detailed dish info
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+HomePage.jsx & .css: Landing page
 
-### `npm run build` fails to minify
+MenuPage.jsx & .css: Full dish menu
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Each file here is a full page or route, composed of reusable components.
+
+5. src/services/
+Handles backend communication and data fetching:
+
+api.js: API functions
+
+apiConfig.js: Stores endpoints/config
+
+integration.js: Backend connection logic
+
+tests.js: Optional API test functions
+
+This folder handles API calls and backend integration logic.
+
+6. src/Styles/
+Global/shared CSS styles:
+
+components.css
+
+main.css
+
+pages.css
+
+These provide consistent styling across the app.
+
+7. Core Files
+App.jsx & App.css: Main component handling routes and layout
+
+App.test.js: App-level test file
+
+index.js: App entry point
+
+index.css: Global CSS rules
+
+App.jsx is the core component, index.js is the starting point, and index.css sets global styles.
+## As bonus features,
+ we implemented several enhancements to improve user experience and functionality. A search bar was added to allow users to easily filter and find dishes by name. The entire application is built with a responsive design, ensuring a smooth and user-friendly experience on both desktop and mobile devices. To highlight new items, a "New " badge automatically appears on dishes with fewer than 10 views. Additionally, we implemented a persistent cart using localStorage, so users' cart items are saved even after a page refresh. A key addition is the nutrition information feature, which displays detailed nutritional facts for each dish—helping users make more informed dietary choices. we also built essential pages like the MenuPage, which displays all available dishes; the AboutPage, which provides background information about the app or business; and the Footer, which includes helpful links and contact info displayed at the bottom of every page
