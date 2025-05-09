@@ -49,10 +49,3 @@ const ReviewList = ({ dishId, newReview }) => {
 };
 
 export default ReviewList;
-
-ReviewList.propTypes = {
-  dishId: PropTypes.string.isRequired,
-  refreshTrigger: PropTypes.any,
-};
-
-export default ReviewList;
