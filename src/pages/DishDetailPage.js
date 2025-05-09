@@ -20,7 +20,7 @@ const DishDetailPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
   const [views, setViews] = useState(0);
-  
+  const [newReview, setNewReview] = useState(null);
 
   
   useEffect(() => { 
@@ -60,12 +60,8 @@ const DishDetailPage = () => {
     }
   };
 
-  const handleAddReview = (newReview)=>{
-    const updatedDish ={
-      ...dish,
-      reviews:[...dish.reviews,newReview]
-    };
-    setDish(updatedDish); 
+   const handleAddReview = (review) => {
+    setNewReview({ ...review, id: Date.now() });
   };
 
   if (isLoading) {
@@ -207,10 +203,9 @@ const DishDetailPage = () => {
 
           {activeTab === 'reviews' && (
             <div className="reviews-tab">
-              <h3>customer reviews</h3>
-              <ReviewList reviews={dish.reviews} />
-              <ReviewForm dishId={dish.id} 
-              onAddReview={handleAddReview}  />
+              <h3>Customer Reviews</h3>
+              <ReviewList dishId={dishId} newReview={newReview} />
+              <ReviewForm dishId={dishId} onAddReview={handleAddReview} />
             </div>
           )}
         </div>
@@ -220,4 +215,4 @@ const DishDetailPage = () => {
   );
 };
 
-export default DishDetailPage; 
+export default DishDetailPage;
