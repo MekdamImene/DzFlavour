@@ -20,11 +20,7 @@ import { MenuProvider } from './context/MenuContext';
 import './App.css';
 
 function App() {
-  const [reviews, setReviews] = useState([]);
-
-  const handleAddReview = (review) => {
-    setReviews([...reviews, review]);
-  };
+ 
 
   return (
     <MenuProvider>
